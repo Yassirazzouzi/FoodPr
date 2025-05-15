@@ -1,0 +1,296 @@
+.detail-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.detail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.detail-content {
+  position: relative;
+  background-color: white;
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+  z-index: 1001;
+}
+
+@media screen and (min-width: 768px) {
+  .detail-content {
+    flex-direction: row;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.detail-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.detail-close:hover {
+  transform: rotate(90deg);
+}
+
+.detail-close img {
+  width: 12px;
+  height: 12px;
+}
+
+.detail-image-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+@media screen and (min-width: 768px) {
+  .detail-image-container {
+    width: 40%;
+    height: auto;
+  }
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(135deg, #8a2be2, #9370db);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0px 3px 10px rgba(138, 43, 226, 0.3);
+}
+
+.detail-info {
+  padding: 25px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+@media screen and (min-width: 768px) {
+  .detail-info {
+    max-height: 90vh;
+  }
+}
+
+.detail-header {
+  margin-bottom: 20px;
+}
+
+.detail-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-rating img {
+  width: 80px;
+}
+
+.detail-rating span {
+  color: #777;
+  font-size: 14px;
+}
+
+.detail-description, .detail-ingredients, .detail-preparation, .detail-benefits, .detail-allergenes {
+  margin-bottom: 25px;
+}
+
+.detail-description h3, .detail-ingredients h3, .detail-preparation h3, .detail-benefits h3, .detail-allergenes h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+  position: relative;
+  padding-left: 15px;
+}
+
+.detail-description h3::before, .detail-ingredients h3::before, .detail-preparation h3::before, .detail-benefits h3::before, .detail-allergenes h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 18px;
+  background: linear-gradient(135deg, #8a2be2, #9370db);
+  border-radius: 3px;
+}
+
+.detail-description p, .detail-preparation p, .detail-benefits p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.detail-ingredients ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.detail-ingredients li {
+  color: #555;
+  font-size: 14px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.detail-ingredients li::before {
+  content: '•';
+  color: #8a2be2;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.detail-info-item {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.detail-info-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin: 0 0 8px 0;
+}
+
+.detail-info-item p {
+  font-size: 16px;
+  font-weight: 700;
+  color: #8a2be2;
+  margin: 0;
+}
+
+.allergenes-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.allergene-tag {
+  background-color: #ffeeee;
+  color: #e74c3c;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.back-btn {
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #8a2be2, #9370db);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+}
+
+@media screen and (max-width: 576px) {
+  .detail-ingredients ul {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-info-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .detail-title {
+    font-size: 20px;
+  }
+  
+  .detail-description h3, .detail-ingredients h3, .detail-preparation h3, .detail-benefits h3, .detail-allergenes h3 {
+    font-size: 16px;
+  }
+  
+  .detail-info {
+    padding: 20px;
+  }
+}

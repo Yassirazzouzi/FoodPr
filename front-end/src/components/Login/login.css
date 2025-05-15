@@ -1,0 +1,185 @@
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.login-popup-container {
+    position: relative;
+    background-color: white;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s ease;
+    z-index: 1001;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.login-popup-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.login-popup-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #8a2be2;
+    margin: 0;
+}
+
+.close-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-icon:hover {
+    transform: rotate(90deg);
+}
+
+.login-popup-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.login-popup-inputs input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.login-popup-inputs input:focus {
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #8a2be2, #9370db);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #7b27cc, #8560d0);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+}
+
+.login-popup-condition {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.login-popup-condition input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #8a2be2;
+}
+
+.login-popup-condition p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+.login-popup-condition span {
+    color: #8a2be2;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.switch-form {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+.switch-form span {
+    color: #8a2be2;
+    font-weight: 600;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.switch-form span:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+    .login-popup-container {
+        padding: 20px;
+    }
+    
+    .login-popup-title h2 {
+        font-size: 20px;
+    }
+    
+    .login-popup-inputs input {
+        padding: 10px 12px;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+    }
+}
