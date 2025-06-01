@@ -1,0 +1,24 @@
+# Ne pas inclure les dépendances
+node_modules/
+
+# Fichiers d'environnement sensibles
+.env
+
+# Fichiers de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Mac
+.DS_Store
+
+# Vercel/Netlify
+.vercel/
+.netlify/
+
+# Logs Railway
+logs
+*.log
+
+# Autres
+dist/
