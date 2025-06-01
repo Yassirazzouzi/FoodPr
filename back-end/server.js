@@ -17,7 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
+
 
 // Connect to MongoDB
 connectDB();
@@ -32,6 +33,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
