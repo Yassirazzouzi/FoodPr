@@ -19,7 +19,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.env.PORT || 4000;
 
-
 // Connect to MongoDB
 connectDB();
 
@@ -28,14 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: [],
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://your-frontend-url.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
@@ -89,17 +85,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-}
+// Start server (one single time)
+app.listen(port, () => {
+  console.log(`✅ Server running on port ${port}`);
+});
 
-// Fonction d’exemple pour l’enregistrement d’un utilisateur
+// Exemple fonction d’enregistrement
 const registerUser = async (userData) => {
   try {
-    const response = await fetch('http://localhost:4000/api/users/register', {
+    const response = await fetch(`http://localhost:${port}/api/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
