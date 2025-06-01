@@ -90,10 +90,6 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-
-// Middleware pour les routes
-app.use('/api/users', UserRouter);
-app.use('/api/foods', foodRoutes);
 app.use('/api/contact', contactRoutes);
 
 // Error handling middleware

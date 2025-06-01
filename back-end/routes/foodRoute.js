@@ -53,9 +53,5 @@ router.delete('/:id', deleteFood);
 // Route générique avec paramètre en dernier
 router.get('/:id', getFoodById);
 
-// Version sécurisée (à utiliser plus tard)
-// router.post('/add', protect, admin, upload.single('image'), addFood);
-// router.put('/:id', protect, admin, upload.single('image'), updateFood);
-// router.delete('/:id', protect, admin, deleteFood);
 
 export default router;
