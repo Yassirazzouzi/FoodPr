@@ -22,7 +22,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT;
-
+require('dotenv').config();
+const connectDB = require('./config/db'); // adapte le chemin selon ton projet
 // Connect to MongoDB
 connectDB();
 
