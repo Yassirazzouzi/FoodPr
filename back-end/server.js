@@ -1,118 +1,77 @@
+// server.js
+
 import express from 'express';
 import cors from 'cors';
-import connectDB from './config/db.js';
-import foodRoutes from './routes/foodRoute.js';
+import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { errorHandler, notFound, rateLimiter } from './middleware/middlware.js';
-import dotenv from 'dotenv';
-import UserRouter from './routes/userRoute.js';
 import fs from 'fs';
-import contactRoutes from './routes/contactRoutes.js';
 
-// Load environment variables
+import connectDB from './config/db.js';
+import foodRoutes from './routes/foodRoute.js';
+import UserRouter from './routes/userRoute.js';
+import contactRoutes from './routes/contactRoutes.js';
+import { errorHandler, notFound, rateLimiter } from './middleware/middlware.js';
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Connect to MongoDB
+// ✅ Connexion MongoDB
 connectDB();
 
-// Middleware
+// ✅ Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://your-frontend-url.vercel.app'],
+  origin: '*', // 🚨 Remplace "*" par ton domaine exact si tu veux plus de sécurité
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
-app.use(rateLimiter(100, 15 * 60 * 1000));
-
+// ✅ Répertoires statiques
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Créer le dossier uploads s’il n’existe pas
+// ✅ Crée le dossier "uploads" s’il n’existe pas
 const uploadsDir = path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Logs
+// ✅ Logs simples
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
 
-app.use((req, res, next) => {
-  console.log('Request Headers:', req.headers);
-  console.log('Request Body:', req.body);
-  next();
-});
+// ✅ Rate Limiter
+app.use(rateLimiter(100, 15 * 60 * 1000));
 
-// Routes
+// ✅ Routes
 app.use('/api/foods', foodRoutes);
 app.use('/api/users', UserRouter);
 app.use('/api/contact', contactRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
+// ✅ Favicon handler (évite l’erreur 502 sur /favicon.ico)
+app.get('/favicon.ico', (req, res) => res.status(204));
+
+// ✅ Page d’accueil
+app.get('/', (req, res) => {
+  res.send('✅ API is running...');
 });
 
-// Error Handling
+// ✅ Middleware de gestion d'erreurs
 app.use(notFound);
 app.use(errorHandler);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: 'Something went wrong!',
-    error: err.message
-  });
-});
-
-// Start server (one single time)
+// ✅ Démarrage du serveur : À appeler **une seule fois**
 app.listen(port, () => {
   console.log(`✅ Server running on port ${port}`);
 });
-
-// Exemple fonction d’enregistrement
-const registerUser = async (userData) => {
-  try {
-    const response = await fetch(`http://localhost:${port}/api/users/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userData),
-      credentials: 'include'
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Registration failed');
-    }
-
-    return data;
-  } catch (error) {
-    console.error('Registration error:', error);
-    throw error;
-  }
-};
-
-export default app;
